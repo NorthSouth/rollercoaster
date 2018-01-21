@@ -6,25 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="assignment">
     <meta name="author" content="Neil Schnepf">
-      
+
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    
+
+    <!--   Google fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Nunito' rel='stylesheet'>
+
     <title>Loop the Loop</title>
-    
+
     <style type="text/css">
         body {
-            font-family: sans-serif;
+            /*     font-family: sans-serif;*/
+            font-family: 'Nunito';
+            font-size: 18px;
         }
 
         img {
             height: 15rem;
+            max-width:90%;
             width: auto;
         }
 
         h1.red {
             color: red;
         }
+
+        .p1 {
+            font-weight: 700;
+        }
+
+        .contentWrapper {
+            width:500px;
+            border-style: solid;
+            border-radius: 10px;
+            padding: 3%;
+            margin: 2%;
+            text-align:center;
+        }
+
+        /*NOTE: additional styling provided through Bootstrap*/
     </style>
 </head>
 
@@ -32,146 +53,165 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!--  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    <div class="row">
-        <div class="col ml-3 mt-2">
-            <h1 class="red" id="h1">&nbsp;</h1>
+    <div class="contentWrapper">
+        <div class="row">
+            <div class="col ml-3 mt-2">
+                <h1 class="red" id="h1">&nbsp;</h1>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col ml-3">
-           <!-- set Initial Image -->
-            <img id="roller" src="https://i.pinimg.com/originals/8b/29/06/8b2906b4ab596cb167d906b51bcc0ecb.jpg" alt="roller coaster">
+        <div class="row">
+            <div class="col ml-3">
+                <!-- set Initial Image -->
+                <img id="roller" src="https://i.pinimg.com/originals/8b/29/06/8b2906b4ab596cb167d906b51bcc0ecb.jpg" alt="roller coaster">
 
-            <script type="text/javascript">
-                function coasterLoop() {
-/*                   call the changeRide function at an interval of 3 seconds
-                     so that it simulates the user going through different 'rides' */
-                    
-                    var rideWait = setInterval(changeRide, 3000);
+                <script type="text/javascript">
+                    function coasterLoop() {
+                        /* call the changeRide function at an interval of 3 seconds
+                           so that it simulates the user going through different 'rides' */
 
-    /*                 Switch roller coaster image source and change displayed text */
-        
-                    function changeRide() {
-                       
-                        theOne = counter % imageSources.length;
-                                               
-  /*                     Add a number-dependent suffix to the displayed text 
-                         to make it sound a little more natural and user-friendly */
+                        var rideWait = setInterval(changeRide, 3000);
 
-                        countEndingString = "st";
+                        /*Switch roller coaster image source and change displayed text */
 
-                        if (counter == 2) {
-                            countEndingString = "nd";
-                        } else if (counter == 3) {
-                            countEndingString = "rd";
-                        } else if (counter >= 4) {
-                            countEndingString = "th";
-                        }
+                        function changeRide() {
 
-   /*                    Dynamically update the HTML to change the
-                         image source as well as the displayed text
-                         When the number of intervals matches the user-entered
-                         number of rides, terminate the setInterval function */
-                        
-                        if (counter < (howMany - 1)) {    
-                            theImg.setAttribute("src", imageSources[theOne]);
-                            document.getElementById("h1").innerHTML = "Wheee!";
-                            newTimeThruText = "Wheee! This is the " + counter + countEndingString + " time we've done this!";
-                            document.getElementById("p1").innerHTML = newTimeThruText;
-                            document.getElementById("p2").innerHTML = "&nbsp;";
-                            document.getElementById("rideBtn").innerHTML = "----";
-                            document.getElementById("rideBtn").disabled = true;
-                            counter++;
-                        } else if (counter == (howMany - 1)) {
-                            theImg.setAttribute("src", imageSources[theOne]);
-                            newTimeThruText = "Wheee! This is the " + counter + countEndingString + " time we've done this! Just one more ride ...";
-                            document.getElementById("p1").innerHTML = newTimeThruText;
-                            document.getElementById("p2").innerHTML = "Hope you're having fun!";
-                            counter++;
-                        } else if (counter == howMany) {
-                            theImg.setAttribute("src", imageSources[theOne]);
-                            document.getElementById("p1").innerHTML = "Last time through!";
-                            document.getElementById("p2").innerHTML = "&nbsp;";
-                            counter++;
-                        } else if (counter > howMany) {
-  /*                        set final image to 'EXIT' sign*/
-                            theImg.setAttribute("src", "https://i.pinimg.com/originals/93/83/06/93830642731707cf6c84716098c7fdea.jpg");
-                            document.getElementById("p1").innerHTML = "And we're back!";
-                            document.getElementById("p2").innerHTML = "Please visit the park again soon!";
-                            document.getElementById("rideBtn").innerHTML = "Done";
-                            document.getElementById("rideBtn").disabled = true;
-                            document.getElementById("h1").innerHTML = "Yay!";
-                            clearInterval(rideWait);
+                            theOne = counter % imageSources.length;
+
+                            /* Add a number-dependent suffix to the displayed text 
+                               to make it sound a little more natural and user-friendly */
+
+                            countEndingString = "st";
+
+                            if (counter == 2) {
+                                countEndingString = "nd";
+                            } else if (counter == 3) {
+                                countEndingString = "rd";
+                            } else if (counter >= 4) {
+                                countEndingString = "th";
+                            }
+
+                            /*  Dynamically update the HTML to change the
+                                image source as well as the displayed text
+                                When the number of intervals matches the user-entered
+                                number of rides, terminate the setInterval function */
+
+                            if (counter < (howMany - 1)) {
+                                theImg.setAttribute("src", imageSources[theOne]);
+                                document.getElementById("h1").innerHTML = "Wheee!";
+                                newTimeThruText = "Wheee! This is the " + counter + countEndingString + " time we've done this!";
+                                document.getElementById("p1").innerHTML = newTimeThruText;
+                                document.getElementById("p2").innerHTML = "&nbsp;";
+                                document.getElementById("rideBtn").innerHTML = "----";
+                                document.getElementById("rideBtn").disabled = true;
+                                counter++;
+                            } else if (counter == (howMany - 1)) {
+                                theImg.setAttribute("src", imageSources[theOne]);
+                                newTimeThruText = "Wheee! This is the " + counter + countEndingString + " time we've done this!<br>Just one more ride ...";
+                                document.getElementById("p1").innerHTML = newTimeThruText;
+                                document.getElementById("p2").innerHTML = "Hope you're having fun!";
+                                counter++;
+                            } else if (counter == howMany) {
+                                theImg.setAttribute("src", imageSources[theOne]);
+                                document.getElementById("p1").innerHTML = "Last time through!";
+                                document.getElementById("p2").innerHTML = "&nbsp;";
+                                counter++;
+                            } else if (counter > howMany) {
+                                /*                        set final image to 'EXIT' sign*/
+                                theImg.setAttribute("src", "https://i.pinimg.com/originals/93/83/06/93830642731707cf6c84716098c7fdea.jpg");
+                                document.getElementById("p1").innerHTML = "And we're back!";
+                                document.getElementById("p2").innerHTML = "Please visit the park again soon!";
+                                document.getElementById("rideBtn").innerHTML = "Done";
+                                document.getElementById("rideBtn").disabled = true;
+                                document.getElementById("h1").innerHTML = "Yay!";
+                                clearInterval(rideWait);
+                            }
+
                         }
 
                     }
 
-                }
+                    function getNumberOfRides() {
+                        howMany = parseInt(prompt("How many times would you like to go on the rides?"))
+
+                        /* Check if user entered something other than an integer
+                         If they did, alert them and try again*/
+
+                        if (!Number.isInteger(howMany)) {
+                            alert("How many tickets did you want? (Please enter a number)");
+                            getNumberOfRides();
+                        }
+                    }
+
+                    /*               Description:
+
+                                     When complete, this program will ask the user how many roller coaster rides
+                                     they'd like to go on, then execute a block of code that many times.
+                                     The block will output which "ride" they're on, and change which image
+                                     is displayed on the page. The images shown will cycle through a list
+                                     of possible sources, though this happens so quickly that the user will only see
+                                     the final one shown.
+
+                                     There are explanatory comments thoughout. The work that still needs to be done
+                                     is noted in TODO comments. Please complete this work.*/
 
 
-/*               Description:
-
-                 When complete, this program will ask the user how many roller coaster rides
-                 they'd like to go on, then execute a block of code that many times.
-                 The block will output which "ride" they're on, and change which image
-                 is displayed on the page. The images shown will cycle through a list
-                 of possible sources, though this happens so quickly that the user will only see
-                 the final one shown.
-
-                 There are explanatory comments thoughout. The work that still needs to be done
-                 is noted in TODO comments. Please complete this work.*/
+                    /*              An array of possible image source values*/
+                    var imageSources = [
+                        "http://images.mentalfloss.com/sites/default/files/styles/width-constrained-728/public/503373-iStock-186293315.jpg",
+                        "https://media4.s-nbcnews.com/j/newscms/2017_31/1270023/wonder-woman-roller-coaster-today-inline-170803_7e4934000dfd84cdbb6b2f4900a03988.today-inline-large.jpg",
+                        "http://cdn.cnn.com/cnnnext/dam/assets/160520171710-07-stormchaser-jpg-best-coasters-super-169.jpg",
+                        "https://thediabeticjourney.com/wp-content/uploads/2016/08/diabetes-rollercoaster.png"
+                    ]
 
 
-/*              An array of possible image source values*/
-                var imageSources = [
-                    "http://images.mentalfloss.com/sites/default/files/styles/width-constrained-728/public/503373-iStock-186293315.jpg",
-                    "https://media4.s-nbcnews.com/j/newscms/2017_31/1270023/wonder-woman-roller-coaster-today-inline-170803_7e4934000dfd84cdbb6b2f4900a03988.today-inline-large.jpg",
-                    "http://cdn.cnn.com/cnnnext/dam/assets/160520171710-07-stormchaser-jpg-best-coasters-super-169.jpg",
-                    "https://thediabeticjourney.com/wp-content/uploads/2016/08/diabetes-rollercoaster.png"
-                ]
+                    /* select the <img> tag with id of "roller" from the HTML*/
 
-                
-/*              select the <img> tag with id of "roller" from the HTML*/
-                var theImg = document.querySelector("img#roller");
+                    var theImg = document.querySelector("img#roller");
 
-         
-/*              TODO: set howMany variable to a value user inputs*/
-                var howMany = parseInt(prompt("How many times would you like to go on the rides?"))
+                    /* TODO: set howMany variable to a value user inputs*/
+                    var howMany;
 
-                var counter = 1;
+                    /* Call function to get user input for the number of rides that they
+                    would like to go on
+                    This also provides us a way to trap non-integer input */
 
-                var countEndingString;
+                    getNumberOfRides();
 
-/*                 EXTRA CHALLENGES:
-                 1. Using JS, add a class of "red" to the <h1>.
-                    This only needs to be done once, so code should be outside loop.
-                 2. Execute the loop only half as many times, or twice as many times, as the user requested.
-                 3. Add a pause to each loop, so user can see each image as it cycles past.
-                    This is a difficult one!
-                */
-            </script>
+                    var counter = 1;
 
+                    var countEndingString;
+
+                    /*                 EXTRA CHALLENGES:
+                                     1. Using JS, add a class of "red" to the <h1>.
+                                        This only needs to be done once, so code should be outside loop.
+                                     2. Execute the loop only half as many times, or twice as many times, as the user requested.
+                                     3. Add a pause to each loop, so user can see each image as it cycles past.
+                                        This is a difficult one!
+                                    */
+                </script>
+
+            </div>
         </div>
-    </div>
-    
-    <div class="row mt-3">
-        <div class="col ml-3">
-            <p id="p1">OK! Get your tickets ready!</p>
+
+        <div class="row mt-3">
+            <div class="col ml-3">
+                <p class="p1" id="p1">OK! Get your tickets ready!</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col ml-3">
-            <p id="p2">Click the button to take a ride!</p>
+        <div class="row">
+            <div class="col ml-3">
+                <p id="p2">Click the button to take a ride!</p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col ml-3">
-            <button id="rideBtn" onclick="coasterLoop()">Ride</button>
+        <div class="row">
+            <div class="col ml-3">
+                <button type="button" class="btn btn-outline-primary" id="rideBtn" onclick="coasterLoop()">Ride</button>
+            </div>
         </div>
     </div>
 </body>
